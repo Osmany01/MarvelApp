@@ -6,8 +6,10 @@ import com.marvelapp.di.MarvelAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 class MarvelApplication: Application(), HasAndroidInjector {
 
 

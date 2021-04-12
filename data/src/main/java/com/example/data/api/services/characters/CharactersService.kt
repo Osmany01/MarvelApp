@@ -8,8 +8,6 @@ interface CharactersService {
 
     companion object {
         const val CHARACTERS = "/v1/public/characters"
-        const val OFFSET = 20
-        const val LIMIT = 50
     }
 
     @GET(CHARACTERS)

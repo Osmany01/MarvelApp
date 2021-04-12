@@ -1,5 +1,6 @@
 package com.marvelapp.ui.characters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,12 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.domain.domain.model.Character
+import com.example.domain.domain.model.characters.Character
 import com.marvelapp.R
 import com.marvelapp.databinding.ViewCharacterBinding
-import com.marvelapp.ui.common.collectFlow
-import com.marvelapp.ui.common.onClickEvents
-import com.marvelapp.ui.common.toast
+import com.marvelapp.ui.characterdetails.CharacterDetailsActivity
+import com.marvelapp.ui.common.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -32,6 +32,8 @@ class CharactersAdapter(private val scope: CoroutineScope) :
         bind(item)
         scope.collectFlow(itemView.onClickEvents) {
             itemView.context.toast(item.name)
+
+            itemView.context.startActivity(CharacterDetailsActivity.launchIntent(itemView.context, item.id))
         }
     }
 
@@ -41,10 +43,7 @@ class CharactersAdapter(private val scope: CoroutineScope) :
 
         fun bind(item: Character) = with(binding) {
             characterTitle.text = item.name
-            Glide
-                .with(characterImage.context)
-                .load(item.thumbnail?.path)
-                .into(characterImage)
+            characterImage.loadWithGlide(item.thumbnail?.path?.plus(IMAGE_QUALITY).plus(item.thumbnail?.extension))
         }
     }
 }

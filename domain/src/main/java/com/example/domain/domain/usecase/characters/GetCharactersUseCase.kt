@@ -1,6 +1,6 @@
 package com.example.domain.domain.usecase.characters
 
-import com.example.domain.domain.model.Character
+import com.example.domain.domain.model.characters.Character
 import com.example.domain.domain.repositories.CharactersRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.domain.domain.usecase.characters.GetCharactersUseCase
 
+@Suppress("UNCHECKED_CAST")
 class CharactersViewModelFactory(private val getCharactersUseCase: GetCharactersUseCase): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CharactersViewModel::class.java)) {

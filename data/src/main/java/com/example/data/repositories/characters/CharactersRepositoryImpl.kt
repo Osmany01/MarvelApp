@@ -1,10 +1,8 @@
 package com.example.data.repositories.characters
 
 import com.example.data.api.RemoteDataSource
-import com.example.data.api.services.characters.CharactersService
 import com.example.data.local.LocalDataSource
-import com.example.data.toDomain
-import com.example.domain.domain.model.Character
+import com.example.domain.domain.model.characters.Character
 import com.example.domain.domain.repositories.CharactersRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withTimeout
@@ -26,7 +24,7 @@ class CharactersRepositoryImpl @Inject constructor(
         val size = localDataSource.size()
         if (lastVisible >= size - PAGE_THRESHOLD) {
 
-            val character = withTimeout(5_000) { remoteDataSource.getMovies(size) }
+            val character = withTimeout(5_000) { remoteDataSource.getCharacters(size) }
             localDataSource.saveCharacters(character)
         }
     }

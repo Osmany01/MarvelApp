@@ -5,11 +5,14 @@ import androidx.room.Room
 import com.example.data.api.MarvelDataSource
 import com.example.data.api.MarvelInterceptor
 import com.example.data.api.RemoteDataSource
+import com.example.data.api.services.characterdetails.CharacterDetailsService
 import com.example.data.api.services.characters.CharactersService
 import com.example.data.local.LocalDataSource
 import com.example.data.local.RoomDataSource
 import com.example.data.local.dao.MarvelDatabase
+import com.example.data.repositories.characterDetails.CharacterDetailsRepositoryImpl
 import com.example.data.repositories.characters.CharactersRepositoryImpl
+import com.example.domain.domain.repositories.CharacterDetailsRepository
 import com.example.domain.domain.repositories.CharactersRepository
 import dagger.Module
 import dagger.Provides
@@ -43,6 +46,11 @@ class DataModule {
 
     @Provides
     @Singleton
+    fun providesCharacterDetailsService(retrofit: Retrofit): CharacterDetailsService =
+        retrofit.create(CharacterDetailsService::class.java)
+
+    @Provides
+    @Singleton
     fun providesRoomDataBase(application: Application): MarvelDatabase =
         Room.databaseBuilder(application, MarvelDatabase::class.java, "marvel-db").build()
 
@@ -53,11 +61,17 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun providesRemoteDataSource(service: CharactersService): RemoteDataSource =
-        MarvelDataSource(service)
+    fun providesRemoteDataSource(characterService: CharactersService,
+                                 characterDetailsService: CharacterDetailsService): RemoteDataSource =
+        MarvelDataSource(characterService, characterDetailsService)
 
     @Provides
     @Singleton
-    fun providesNotesRepository(localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource): CharactersRepository =
+    fun providesCharactersRepository(localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource): CharactersRepository =
         CharactersRepositoryImpl(localDataSource, remoteDataSource)
+
+    @Provides
+    @Singleton
+    fun providesCharacterDetailsRepository(localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource): CharacterDetailsRepository =
+        CharacterDetailsRepositoryImpl(localDataSource, remoteDataSource)
 }

@@ -2,6 +2,7 @@ package com.marvelapp.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.marvelapp.ui.characterdetails.CharacterDetailsViewModel
 import com.marvelapp.ui.characters.CharactersViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -14,7 +15,13 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(CharactersViewModel::class)
-    abstract fun bindLoginViewModelViewModel(loginViewModel: CharactersViewModel): ViewModel
+    abstract fun bindCharactersModelViewModel(charactersViewModel: CharactersViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CharacterDetailsViewModel::class)
+    abstract fun bindCharacterDetailsViewModelViewModel(characterDetailsViewModel: CharacterDetailsViewModel): ViewModel
+
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
