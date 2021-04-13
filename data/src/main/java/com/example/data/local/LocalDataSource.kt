@@ -4,7 +4,7 @@ import com.example.domain.domain.model.characterdetails.CharacterDetails
 import com.example.domain.domain.model.characters.Character
 import kotlinx.coroutines.flow.Flow
 
-interface LocalDataSource {
+open interface LocalDataSource {
 
     //region Characters
     suspend fun size(): Int

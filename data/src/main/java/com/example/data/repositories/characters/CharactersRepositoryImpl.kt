@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
-class CharactersRepositoryImpl @Inject constructor(
+
+open class CharactersRepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : CharactersRepository {

@@ -1,42 +1,44 @@
-package com.example.data.local
+package com.example.data.api
 
+import com.example.data.local.LocalDataSource
 import com.example.data.local.dao.MarvelDatabase
 import com.example.data.toDomain
 import com.example.data.toDomainCharacter
 import com.example.data.toRoom
 import com.example.data.toRoomCharacter
 import com.example.domain.domain.model.characterdetails.CharacterDetails
+import com.example.domain.domain.model.characterdetails.ThumbnailCharacterDetails
 import com.example.domain.domain.model.characters.Character
+import com.example.domain.domain.model.characters.ThumbnailCharacter
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 
-open class RoomDataSource(db: MarvelDatabase): LocalDataSource {
+open class FakeRoomDataSource(): LocalDataSource {
 
-    private val marvelDao = db.marvelDao()
-
+    private val characters = mutableListOf<Character>()
+    private var characterDetails = CharacterDetails(1, "name", "description", ThumbnailCharacterDetails("path", "extention"))
     //region Characters
-    override suspend fun size(): Int = marvelDao.charactersCount()
+    override suspend fun size(): Int = characters.size
 
     override suspend fun saveCharacters(character: List<Character>) {
 
-        marvelDao.insertCharacter(character.map { it.toRoomCharacter() })
+        this.characters += character
     }
 
     override fun getCharacters(): Flow<List<Character>> =
-        marvelDao
-            .getAll()
-            .map { roomCharacter -> roomCharacter.map { it.toDomainCharacter() } }
+        flowOf(characters)
     //endregion
 
     //region CharacterDetails
-    override suspend fun characterDetailsSize(): Int = marvelDao.characterDetailsCount()
+    override suspend fun characterDetailsSize(): Int = characters.size
 
     override suspend fun saveCharacterDetails(characterDetails: CharacterDetails) {
-        marvelDao.insertCharacterDetails(characterDetails.toRoom())
+        this.characterDetails = characterDetails
     }
 
     override fun getCharacterDetails(characterId: Int): Flow<CharacterDetails> =
-        marvelDao.getCharacterDetails(characterId).mapNotNull { it.toDomain() }
+        flowOf(characterDetails)
     //endregion
 }

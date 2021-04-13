@@ -6,7 +6,7 @@ import com.example.data.toDomain
 import com.example.domain.domain.model.characterdetails.CharacterDetails
 import com.example.domain.domain.model.characters.Character
 
-class MarvelDataSource(private val characterService: CharactersService,
+open class MarvelDataSource(private val characterService: CharactersService,
                         private val characterDetailsService: CharacterDetailsService): RemoteDataSource {
 
     override suspend fun getCharacters(offset: Int): List<Character> =
