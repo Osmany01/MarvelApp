@@ -5,7 +5,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 
-class MarvelInterceptor(val client: OkHttpClient.Builder): Interceptor {
+class MarvelInterceptor(): Interceptor {
 
     companion object {
 

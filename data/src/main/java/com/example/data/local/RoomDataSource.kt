@@ -7,9 +7,7 @@ import com.example.data.toRoom
 import com.example.data.toRoomCharacter
 import com.example.domain.domain.model.characterdetails.CharacterDetails
 import com.example.domain.domain.model.characters.Character
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.*
 
 open class RoomDataSource(db: MarvelDatabase): LocalDataSource {
 
@@ -37,6 +35,6 @@ open class RoomDataSource(db: MarvelDatabase): LocalDataSource {
     }
 
     override fun getCharacterDetails(characterId: Int): Flow<CharacterDetails> =
-        marvelDao.getCharacterDetails(characterId).mapNotNull { it.toDomain() }
+        marvelDao.getCharacterDetails(characterId).map { it.toDomain() }
     //endregion
 }

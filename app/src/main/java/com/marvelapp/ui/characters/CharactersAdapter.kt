@@ -31,7 +31,6 @@ class CharactersAdapter(private val scope: CoroutineScope) :
         val item = getItem(position)
         bind(item)
         scope.collectFlow(itemView.onClickEvents) {
-            itemView.context.toast(item.name)
 
             itemView.context.startActivity(CharacterDetailsActivity.launchIntent(itemView.context, item.id))
         }

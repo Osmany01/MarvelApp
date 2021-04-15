@@ -29,13 +29,14 @@ class DataModule {
 
         const val BASE_URL_MARVEL_API = "https://gateway.marvel.com/"
     }
-    val clientBuilder = OkHttpClient.Builder()
+    private val clientBuilder = OkHttpClient.Builder()
 
     @Provides
+    @Singleton
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL_MARVEL_API)
-            .client(clientBuilder.addInterceptor(MarvelInterceptor(clientBuilder)).build())
+            .client(clientBuilder.addInterceptor(MarvelInterceptor()).build())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

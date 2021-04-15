@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MarvelApp</string>
+    <string name="generic_error_message">Upps, something went wrong</string>
 </resources>

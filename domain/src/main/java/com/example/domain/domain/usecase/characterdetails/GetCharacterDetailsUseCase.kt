@@ -7,7 +7,5 @@ import javax.inject.Inject
 
 class GetCharacterDetailsUseCase(private val repo: CharacterDetailsRepository) {
 
-    fun getCharacterDetails(characterId: Int): Flow<CharacterDetails> = repo.getCharacterDetails(characterId)
-
     suspend fun checkCharacterDetails(characterId: Int) = repo.checkCharacterDetails(characterId)
 }

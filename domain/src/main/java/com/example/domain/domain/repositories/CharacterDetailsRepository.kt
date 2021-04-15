@@ -6,7 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CharacterDetailsRepository {
 
-    fun getCharacterDetails(characterId: Int): Flow<CharacterDetails>
-
-    suspend fun checkCharacterDetails(characterId: Int)
+    suspend fun checkCharacterDetails(characterId: Int): Flow<CharacterDetails?>
 }

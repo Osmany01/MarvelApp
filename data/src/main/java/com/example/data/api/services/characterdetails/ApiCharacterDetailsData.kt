@@ -4,5 +4,5 @@ data class ApiCharacterDetailsData(
     val limit: Int,
     val total: Int,
     val count: Int,
-    val results: ApiCharacterDetails
+    val results: List<ApiCharacterDetails>
 )

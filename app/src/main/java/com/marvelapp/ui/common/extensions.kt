@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.*
 
 
 const val IMAGE_QUALITY = "/standard_amazing."
+const val GENERIC_ERROR_MESSAGE = "Oopps, something went wrong"
 
 fun <T> CoroutineScope.collectFlow(flow: Flow<T>, body: suspend (T) -> Unit) {
     flow.onEach { body(it) }

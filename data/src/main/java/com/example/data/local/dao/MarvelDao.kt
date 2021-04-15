@@ -31,5 +31,6 @@ interface MarvelDao {
 
     @Query("SELECT COUNT(id) FROM RoomCharacterDetails")
     suspend fun characterDetailsCount(): Int
+
     //endregion
 }

@@ -13,5 +13,5 @@ open class MarvelDataSource(private val characterService: CharactersService,
         characterService.getCharacters(offset = offset).data.results.map { it.toDomain() }
 
     override suspend fun getCharacter(characterId: Int): CharacterDetails =
-        characterDetailsService.getCharacter(characterId).data.results.toDomain()
+        characterDetailsService.getCharacter(characterId).data.results.first().toDomain()
 }
