@@ -33,7 +33,7 @@ class CharactersActivity : AppCompatActivity() {
 
         val charactersAdapter = CharactersAdapter(lifecycleScope)
 
-        lifecycleScope.collectFlow(viewModel.spinner) { binding.progress.visible = it }
+        lifecycleScope.collectFlow(viewModel.spinner) { binding.progressBar.visible = it }
         lifecycleScope.collectFlow(viewModel.characters) { charactersAdapter.submitList(it) }
 
         lifecycleScope.collectFlow(binding.recycler.lastVisibleEvents) { viewModel.notifyLastVisible(it) }
