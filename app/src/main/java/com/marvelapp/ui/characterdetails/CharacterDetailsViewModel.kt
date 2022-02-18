@@ -1,16 +1,13 @@
 package com.marvelapp.ui.characterdetails
 
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.domain.model.characterdetails.CharacterDetails
 import com.example.domain.domain.usecase.characterdetails.GetCharacterDetailsUseCase
-import com.marvelapp.R
 import com.marvelapp.ui.common.GENERIC_ERROR_MESSAGE
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 class CharacterDetailsViewModel @Inject constructor(
@@ -22,7 +19,7 @@ class CharacterDetailsViewModel @Inject constructor(
     val characterDetailsUiState get() = _characterDetailsUiState
 
     fun getCharacterDetails(characterId: Int) = viewModelScope.launch {
-
+        _characterDetailsUiState.value = CharacterDetailsUiState.Loading
         getCharacterDetailsUseCase.checkCharacterDetails(characterId).catch {
 
             _characterDetailsUiState.value = CharacterDetailsUiState.Error(it.message?: GENERIC_ERROR_MESSAGE)

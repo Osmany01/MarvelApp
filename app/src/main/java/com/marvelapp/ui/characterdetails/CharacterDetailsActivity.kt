@@ -38,6 +38,7 @@ class CharacterDetailsActivity: AppCompatActivity() {
         viewModel.getCharacterDetails(intent.getIntExtra(ARG_CHARACTERID, 0))
         lifecycleScope.collectFlow(viewModel.characterDetailsUiState) { characterDetailsUiState ->
             when(characterDetailsUiState) {
+                is CharacterDetailsViewModel.CharacterDetailsUiState.Loading -> showLoading()
                 is CharacterDetailsViewModel.CharacterDetailsUiState.Success -> setUpViews(characterDetailsUiState.characterDetails)
                 is CharacterDetailsViewModel.CharacterDetailsUiState.Error -> setUpError(characterDetailsUiState.message)
             }
@@ -45,8 +46,12 @@ class CharacterDetailsActivity: AppCompatActivity() {
 
     }
 
-    private fun setUpError(message: String) {
+    private fun showLoading() {
+        binding.progress.visibility = View.VISIBLE
+    }
 
+    private fun setUpError(message: String) {
+        binding.progress.visibility = View.GONE
         binding.characterImage.visibility = View.GONE
         binding.characterTitle.visibility = View.GONE
         binding.characterDescription.visibility = View.GONE
@@ -56,7 +61,7 @@ class CharacterDetailsActivity: AppCompatActivity() {
     }
 
     private fun setUpViews(characterDetails: CharacterDetails) {
-
+        binding.progress.visibility = View.GONE
         binding.error.visibility = View.GONE
 
         binding.characterImage.loadWithGlide(characterDetails.thumbnail?.path?.plus(IMAGE_QUALITY).plus(characterDetails.thumbnail?.extension))

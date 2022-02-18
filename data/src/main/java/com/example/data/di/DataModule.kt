@@ -73,6 +73,6 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun providesCharacterDetailsRepository(localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource): CharacterDetailsRepository =
-        CharacterDetailsRepositoryImpl(localDataSource, remoteDataSource)
+    fun providesCharacterDetailsRepository(remoteDataSource: RemoteDataSource): CharacterDetailsRepository =
+        CharacterDetailsRepositoryImpl(remoteDataSource)
 }
